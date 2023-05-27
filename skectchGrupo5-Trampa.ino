@@ -17,7 +17,6 @@ long recalibrateTimer = (recalibrationInterval*60000);
 
 void setup() {
   
-  /* Un-comment serial commands for testing/debugging output */
   
   Serial.begin(9600);
   
@@ -58,9 +57,9 @@ void soundAlarm(){
   }
 }
 
-/* Sets the sensor threshold based on the highest of a series of readings */
+/* Función para calibrar */
 void auto_calibrate(){ 
-  //Serial.println("Calibrating...");
+  //Serial.println("Calibrando...");
   int max_value = 0;
   int current_value = 0;
   for(int i = 0; i < 10; i++){
@@ -75,7 +74,7 @@ void auto_calibrate(){
     delay(300);    
   }
   threshold = max_value+5;
-  //Serial.print("Auto calibrated threshold:");
+  //Serial.print("ASe autocalibro:");
   //Serial.println(threshold);
   setLed(ledGreenPin);
 }
@@ -87,14 +86,14 @@ void loop() {
   if(triggered == 0){ 
 
     if(millis() > recalibrateTimer){
-      //Serial.print("Recalibrating...");
+      //Serial.print("Recalibrando...");
       auto_calibrate();
       recalibrateTimer = (millis() + (recalibrationInterval*60000));
     }    
     
     if(analogRead(sensorPin) > threshold){
       //Serial.print(analogRead(sensorPin));
-      //Serial.println(" - threshold crossed");
+      //Serial.println(" - threshold cruzado");
       delay(10);
       setLed(ledRedPin);
       if(analogRead(sensorPin) > threshold){ 
